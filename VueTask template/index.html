@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1.0">
+	<title>Exchange Tool</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+</head>
+
+<body>
+	<div id="app" :key="exg">
+		<div id="exchange">
+			<h3> CURRENCY: {{ exg }}</h3>
+			<div>
+				{{ partOne }}
+				<div v-for="(rate, currency) in currencies" class="currency">
+					<!-- <ul>
+						<li><a id="currency" v-on:click="changeExg(exg = currency)">{{currency}}: </a>{{rate}}</li>
+					</ul> -->
+
+				</div>
+			</div>
+			<h3> Exhange Calculator:</h3>
+			<div>
+				{{ partTwo }}
+				<div class="formContainer" >
+					<form>
+						<select id="selectedFromCurrency" v-model="selected" 
+						 v-on:change="changeselectedFromC(selectedFromCurrency = currency)" >
+						<option value="SEK" v-for="(rate, currency) in currencies">{{currency}}</option>
+						</select>
+						<div >
+						<input id="inputAmount"  @keyup="calculateFrom(rate, currency)" :value="inputAmount" v-model="rate">
+					</div>
+						<br>
+						<div></div>
+						<select id="selectedToCurrency" v-model="selected"
+						 v-on:change="changeselectedToC(selectedToCurrency = currency)" >
+						<option value="USD" v-for="(rate, currency) in currencies">{{currency}}</option>
+						</select>
+						<input id="outputAmount" @keyup="calculateTo" :value="outputAmount">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="main.js"></script>
+</body>
+
+</html>
