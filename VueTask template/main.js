@@ -36,7 +36,7 @@ let app = new Vue({
 				.then(response => (this.rate = response.data.rates[this.selectedToCurrency]));
 		},
 		
-		//There is a bug when the user try to write a number in the first time I will try to fix
+
 		calculate: function (input) {
 		
 			 this.getSpecificCurrencies(this.selectedFromCurrency);
