@@ -29,21 +29,21 @@
 				<div class="formContainer" >
 					<form>
 						<select id="selectedFromCurrency" v-model="selectedFromCurrency" 
-						 v-on:change="changeselectedFromC(selectedFromCurrency)" >
+						 v-on:change="calculate(inputAmount)" >
 						<option value="SEK" v-for="(rate, currency) in currencies" v-bind:value="currency" >
 							{{currency}}</option>
 						</select>
 						<div >
-						<input type="number" id="input"  @keyup="calculateFrom"  v-model="inputAmount">
+						<input type="number" id="input" v-on:input="calculate(inputAmount)"  v-model="inputAmount">
 					</div>
 						<br>
-						<div></div>
+						<button type="submit" v-on:click.prevent="switchCurrencies">Switch</button>
 						<select id="selectedToCurrency" v-model="selectedToCurrency"
-						 v-on:change="changeselectedToC(selectedToCurrency)" >
+						 v-on:change="calculate(inputAmount)" >
 						<option value="USD" v-for="(rate, currency) in currencies" v-bind:value="currency">
 							{{currency}}</option>
 						</select>
-						<input type="number" id="output" @keyup="calculateTo" v-model="outputAmount">
+						<input type="number" id="output"  v-model="outputAmount">
 					</form>
 				</div>
 			</div>

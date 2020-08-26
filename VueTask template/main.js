@@ -6,7 +6,7 @@ let app = new Vue({
 		exg: "SEK",
 		selectedFromCurrency: "SEK",
 		selectedToCurrency: "USD",
-		selectedRates:[],
+		rate: "",
 		inputAmount: 0,
 		outputAmount: 0,
 
@@ -14,13 +14,11 @@ let app = new Vue({
 		partTwo: "Part Two"
 	},
 	created() {
-
-		// this.changeselectedFromC("SEK");
-		// this.changeselectedToC("USD");
-		
+		this.changeExg("SEK");
 	},
 	mounted() {
-		this.changeExg("SEK");
+		this.calculate(1);
+		
 	},
 	methods: {
 		getCurrencies: function (base) {
@@ -30,37 +28,34 @@ let app = new Vue({
 		changeExg: function (newExg) {
 			this.exg = newExg;
 			this.getCurrencies(this.exg);
+			console.log(this.exg)
 		},
 
-		changeselectedFromC: function (newValue) {
-			this.selectedFromCurrency = newValue;
-			this.getCurrencies(this.selectedFromCurrency);
+		getSpecificCurrencies: function (base) {
+			axios.get(`https://api.exchangeratesapi.io/latest?base=${base}`)
+				.then(response => (this.rate = response.data.rates[this.selectedToCurrency]));
+		},
+		
+		//There is a bug when the user try to write a number in the first time I will try to fix
+		calculate: function (input) {
+		
+			 this.getSpecificCurrencies(this.selectedFromCurrency);
+			 input = this.inputAmount;
+			 this.outputAmount = input * this.rate;
 
 		},
-		changeselectedToC: function (newValue) {
-			this.selectedToCurrency = newValue;
-			this.getCurrencies(this.selectedToCurrency);
-		},
-		calculateFrom: function (value) {
-			this.inputAmount = value;
-			this.calculate(true);
+		switchCurrencies: function(){
+			//switch input
+			const inputA = this.inputAmount;
+			this.inputAmount = this.outputAmount;
+			this.outputAmount = inputA;
 
-		},
-
-		calculateTo: function (value) {
-			this.outputAmount= value;
-			this.calculate(false);
-		},
-
-		calculate: function (isfocused) {
-
-		const selected = this.getCurrencies(this.selectedFromCurrency);
-			if (isfocused) {
-				this.outputAmount = this.inputAmount * selected.rate;
-			}else{
-				this.inputAmount = this.outputAmount / this.currencies.rate;
-			}
-		},
+            //Switch currency
+			const selectedValue = this.selectedFromCurrency;
+			this.selectedFromCurrency = this.selectedToCurrency;
+			this.selectedToCurrency = selectedValue;
+			
+		}
 	
 	}
 })
