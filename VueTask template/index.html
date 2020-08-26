@@ -7,44 +7,52 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
 		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css'>
 </head>
 
 <body>
 	<div id="app" :key="exg">
 		<div id="exchange">
-			<h3> CURRENCY: {{ exg }}</h3>
-			<div>
-				{{ partOne }}
+			<div class="partOne">
+				<h3> CURRENCY: {{ exg }}</h3>
+				<h4>{{ partOne }}</h4>
 				<div v-for="(rate, currency) in currencies" class="currency">
 
 					<ul class="currancyList">
-						<li><a id="currency" v-on:click="changeExg(exg = currency)" class="currancyN">{{currency}} : </a>{{rate}}</li>
+						<li><a id="currency" v-on:click="changeExg(exg = currency)" class="currancyN">{{currency}} :
+							</a>{{rate}}</li>
 					</ul>
 
 				</div>
 			</div>
-			<h3> Exhange Calculator:</h3>
-			<div>
-				{{ partTwo }}
+			<div class="partTwo">
+				<h3> Exhange Calculator:</h3>
+				<h4>{{ partTwo }}</h4>
+				<br>
 				<div class="formContainer">
 					<form>
-						<select id="selectedFromCurrency" v-model="selectedFromCurrency"
-							v-on:change="calculate(inputAmount)" class="custom-select">
-							<option value="SEK" v-for="(rate, currency) in currencies" v-bind:value="currency">
-								{{currency}}</option>
-						</select>
 						<div class="inputContainer">
+							<select id="selectedFromCurrency" v-model="selectedFromCurrency"
+								v-on:change="calculate(inputAmount)" class="custom-select">
+								<option value="SEK" v-for="(rate, currency) in currencies" v-bind:value="currency">
+									{{currency}}</option>
+							</select>
 							<input type="number" id="input" v-on:input="calculate(inputAmount)" v-model="inputAmount">
 						</div>
 						<br>
-						<button type="submit" v-on:click.prevent="switchCurrencies">Switch</button>
-						<select id="selectedToCurrency" v-model="selectedToCurrency"
-							v-on:change="calculate(inputAmount)">
-							<option value="USD" v-for="(rate, currency) in currencies" v-bind:value="currency">
-								{{currency}}</option>
-						</select>
-						<div class="inputContainer">
+						<div class="switch">
+							<button v-on:click.prevent="switchCurrencies" class="switchBtn">
+								<i class="fas fa-exchange-alt"></i>
+							</button>
+						</div>
+						<br>
+						<div class="outputContainer">
+							<select id="selectedToCurrency" v-model="selectedToCurrency"
+								v-on:change="calculate(inputAmount)" class="custom-select">
+								<option value="USD" v-for="(rate, currency) in currencies" v-bind:value="currency">
+									{{currency}}</option>
+							</select>
+
 							<input type="number" id="output" v-model="outputAmount">
 						</div>
 					</form>
