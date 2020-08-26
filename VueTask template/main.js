@@ -6,6 +6,7 @@ let app = new Vue({
 		exg: "SEK",
 		selectedFromCurrency: "SEK",
 		selectedToCurrency: "USD",
+		selectedRates:[],
 		inputAmount: 0,
 		outputAmount: 0,
 
@@ -14,7 +15,9 @@ let app = new Vue({
 	},
 	created() {
 
-		this.changeselectedFromC("SEK");
+		// this.changeselectedFromC("SEK");
+		// this.changeselectedToC("USD");
+		
 	},
 	mounted() {
 		this.changeExg("SEK");
@@ -31,50 +34,33 @@ let app = new Vue({
 
 		changeselectedFromC: function (newValue) {
 			this.selectedFromCurrency = newValue;
-			
 			this.getCurrencies(this.selectedFromCurrency);
 
 		},
 		changeselectedToC: function (newValue) {
 			this.selectedToCurrency = newValue;
 			this.getCurrencies(this.selectedToCurrency);
-			console.log("Change selected to :: ",newValue )
 		},
-		calculateFrom: function (value,currancy) {
-			this.selectedFromCurrency = currancy;
-			this.calculate(value);
-
-		},
-
-		calculateTo: function (value, currancy) {
-			this.selectedToCurrency = currancy;
-			this.calculate(value);
+		calculateFrom: function (value) {
+			this.inputAmount = value;
+			this.calculate(true);
 
 		},
 
-		calculate: function (value) {
-			var value = parseFloat(value);
-			if (this.selectedFromCurrency && this.selectedToCurrency) {
-				this.inputAmount = value;
-				this.outputAmount = (value * this.inputAmount).toFixed(2);
+		calculateTo: function (value) {
+			this.outputAmount= value;
+			this.calculate(false);
+		},
+
+		calculate: function (isfocused) {
+
+		const selected = this.getCurrencies(this.selectedFromCurrency);
+			if (isfocused) {
+				this.outputAmount = this.inputAmount * selected.rate;
+			}else{
+				this.inputAmount = this.outputAmount / this.currencies.rate;
 			}
 		},
-		// updateInputs: function () {
-		// 	var selected;
-		// 	for (i = 0; i < this.currencies.length; i++) {
-		// 		if (this.selectedFromCurrency == this.currencies[i]) {
-		// 			selected = this.currencies[i];
-		// 		}
-		// 	}
-		// 	this.currencies = selected.rate;
-
-		// 	var input2 = parseFloat(document.getElementById("inputAmount").value);
-		// 	if (isNaN(input2)) {
-		// 		this.inputAmount = "";
-		// 		this.outputAmount = "";
-		// 		return;
-		// 	}
-		// 	this.outputAmount = (input2 * this.currencies).toFixed(2);
-		// },
+	
 	}
 })
