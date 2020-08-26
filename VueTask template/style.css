@@ -45,3 +45,15 @@
     width: 50% ;
     margin-bottom: 50px;
   }
+  .currency{
+    width: 50%;
+  }
+ .currancyList {
+    border-collapse: collapse;
+    width: 50%; 
+    border: 1px solid #ddd; 
+    font-size: 18px; 
+  }
+  .currancyN{
+    color: crimson;
+  }

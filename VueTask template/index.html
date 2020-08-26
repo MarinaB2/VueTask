@@ -17,8 +17,9 @@
 			<div>
 				{{ partOne }}
 				<div v-for="(rate, currency) in currencies" class="currency">
-					<ul>
-						<li><a id="currency" v-on:click="changeExg(exg = currency)">{{currency}}: </a>{{rate}}</li>
+
+					<ul class="currancyList">
+						<li><a id="currency" v-on:click="changeExg(exg = currency)" class="currancyN">{{currency}} : </a>{{rate}}</li>
 					</ul>
 
 				</div>
