@@ -17,7 +17,7 @@ let app = new Vue({
 		this.changeExg("SEK");
 	},
 	mounted() {
-		this.calculate(1);
+		this.calculate(0);
 		
 	},
 	methods: {

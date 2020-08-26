@@ -17,33 +17,35 @@
 			<div>
 				{{ partOne }}
 				<div v-for="(rate, currency) in currencies" class="currency">
-				 <ul>
+					<ul>
 						<li><a id="currency" v-on:click="changeExg(exg = currency)">{{currency}}: </a>{{rate}}</li>
-					</ul> 
+					</ul>
 
 				</div>
 			</div>
 			<h3> Exhange Calculator:</h3>
 			<div>
 				{{ partTwo }}
-				<div class="formContainer" >
+				<div class="formContainer">
 					<form>
-						<select id="selectedFromCurrency" v-model="selectedFromCurrency" 
-						 v-on:change="calculate(inputAmount)" >
-						<option value="SEK" v-for="(rate, currency) in currencies" v-bind:value="currency" >
-							{{currency}}</option>
+						<select id="selectedFromCurrency" v-model="selectedFromCurrency"
+							v-on:change="calculate(inputAmount)" class="custom-select">
+							<option value="SEK" v-for="(rate, currency) in currencies" v-bind:value="currency">
+								{{currency}}</option>
 						</select>
-						<div >
-						<input type="number" id="input" v-on:input="calculate(inputAmount)"  v-model="inputAmount">
-					</div>
+						<div class="inputContainer">
+							<input type="number" id="input" v-on:input="calculate(inputAmount)" v-model="inputAmount">
+						</div>
 						<br>
 						<button type="submit" v-on:click.prevent="switchCurrencies">Switch</button>
 						<select id="selectedToCurrency" v-model="selectedToCurrency"
-						 v-on:change="calculate(inputAmount)" >
-						<option value="USD" v-for="(rate, currency) in currencies" v-bind:value="currency">
-							{{currency}}</option>
+							v-on:change="calculate(inputAmount)">
+							<option value="USD" v-for="(rate, currency) in currencies" v-bind:value="currency">
+								{{currency}}</option>
 						</select>
-						<input type="number" id="output"  v-model="outputAmount">
+						<div class="inputContainer">
+							<input type="number" id="output" v-model="outputAmount">
+						</div>
 					</form>
 				</div>
 			</div>
